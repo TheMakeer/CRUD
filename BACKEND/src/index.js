@@ -2,14 +2,19 @@ const express = require('express'); //llamamos a Express
 const mongoose = require('mongoose'); 
 require('dotenv').config();
 const companyRoutes = require('./routes/company');
+const eventRoutes = require('./routes/event');
+const participantRoutes = require('./routes/participant');
 // import eventsRoutes from './routes/events';
 // import participantsRoutes from './routes/participants';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 //middleware
+app.use(express.json())
 app.use('/api', companyRoutes);
+app.use('/api', participantRoutes);
+app.use('/api', eventRoutes);
 
 //routes
 app.get('/', (req,res) => {
@@ -24,6 +29,6 @@ mongoose.connect(
 
 
 app.listen(port, ()=>{
-    console.log('Server on http://localhost:3000');
+    console.log(`Server on PORT ${port}` );
 });
 
